@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img">
+  <!--
+    A page layout — what the panel will usually float above in practice.
+
+    Cards, rules, tables, avatars, a chart: a dense field of straight edges
+    at many scales, in the colours real interfaces actually use. This is the
+    honest test, because it mixes the easy case (large blocks) with the hard
+    one (12px labels in a table) inside a single panel width.
+
+    Deliberately not built with the glass tokens: if the backdrop shared its
+    palette with the panel, the test would be flattering itself.
+  -->
+  <style>
+    text { font-family: Helvetica, Arial, sans-serif; fill: #1b1c1e; }
+    .h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.7px; }
+    .h2 { font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
+    .lbl { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; fill: #7a7b80; }
+    .p { font-size: 13px; fill: #55565a; }
+    .num { font-size: 30px; font-weight: 700; letter-spacing: -0.8px; }
+    .nav { font-size: 13px; fill: #26262b; }
+    .cell { font-size: 12px; fill: #3a3b40; }
+  </style>
+
+  <rect width="1600" height="1000" fill="#f2f1ee" />
+
+  <!-- ── Top bar ───────────────────────────────────────────────── -->
+  <rect x="0" y="0" width="1600" height="64" fill="#ffffff" />
+  <path d="M0 64h1600" stroke="#dedbd5" stroke-width="1" />
+  <rect x="40" y="22" width="20" height="20" rx="6" fill="#2f5fd0" />
+  <text class="h2" x="72" y="38">Overview</text>
+  <g class="nav">
+    <text x="330" y="38">Reports</text>
+    <text x="420" y="38">Activity</text>
+    <text x="510" y="38">People</text>
+    <text x="592" y="38">Settings</text>
+  </g>
+  <rect x="1180" y="18" width="240" height="28" rx="14" fill="#f2f1ee" />
+  <text class="p" x="1200" y="37">Search…</text>
+  <circle cx="1470" cy="32" r="14" fill="#d9d7d3" />
+  <circle cx="1500" cy="32" r="14" fill="#c9d3ee" />
+  <circle cx="1530" cy="32" r="14" fill="#e8cfc6" />
+
+  <!-- ── Sidebar ───────────────────────────────────────────────── -->
+  <rect x="0" y="64" width="240" height="936" fill="#ffffff" />
+  <path d="M240 64v936" stroke="#dedbd5" stroke-width="1" />
+  <text class="lbl" x="40" y="112">WORKSPACE</text>
+  <g class="nav">
+    <rect x="24" y="128" width="192" height="32" rx="8" fill="#eef2fc" />
+    <text x="40" y="149" fill="#2f5fd0" font-weight="700">Dashboard</text>
+    <text x="40" y="189">Projects</text>
+    <text x="40" y="229">Documents</text>
+    <text x="40" y="269">Calendar</text>
+    <text x="40" y="309">Messages</text>
+    <text x="40" y="349">Analytics</text>
+  </g>
+  <text class="lbl" x="40" y="404">RECENT</text>
+  <g class="p">
+    <text x="40" y="436">Q3 planning</text>
+    <text x="40" y="468">Site redesign</text>
+    <text x="40" y="500">Vendor review</text>
+    <text x="40" y="532">Onboarding v2</text>
+  </g>
+  <g stroke="#ececea" stroke-width="1">
+    <path d="M24 452h192M24 484h192M24 516h192" />
+  </g>
+
+  <!-- ── Heading ───────────────────────────────────────────────── -->
+  <text class="lbl" x="280" y="112">THIS QUARTER</text>
+  <text class="h1" x="280" y="152">Everything on one surface</text>
+  <text class="p" x="280" y="180">Cards, tables and a chart — straight edges at four different scales.</text>
+
+  <!-- ── Stat cards ────────────────────────────────────────────── -->
+  <g>
+    <rect x="280" y="208" width="300" height="128" rx="12" fill="#ffffff" stroke="#e4e2de" />
+    <text class="lbl" x="304" y="240">SESSIONS</text>
+    <text class="num" x="304" y="286">12 480</text>
+    <text class="p" x="304" y="312" fill="#1f8a4c">▲ 6.2 % vs. last quarter</text>
+  </g>
+  <g>
+    <rect x="600" y="208" width="300" height="128" rx="12" fill="#ffffff" stroke="#e4e2de" />
+    <text class="lbl" x="624" y="240">CONVERSION</text>
+    <text class="num" x="624" y="286">3.14 %</text>
+    <text class="p" x="624" y="312" fill="#c0392b">▼ 0.4 pt vs. last quarter</text>
+  </g>
+  <g>
+    <rect x="920" y="208" width="300" height="128" rx="12" fill="#2f5fd0" />
+    <text class="lbl" x="944" y="240" fill="#c8d6f6">REVENUE</text>
+    <text class="num" x="944" y="286" fill="#ffffff">€ 84.2k</text>
+    <text class="p" x="944" y="312" fill="#c8d6f6">▲ 11.8 % vs. last quarter</text>
+  </g>
+  <g>
+    <rect x="1240" y="208" width="320" height="128" rx="12" fill="#ffffff" stroke="#e4e2de" />
+    <text class="lbl" x="1264" y="240">OPEN ITEMS</text>
+    <text class="num" x="1264" y="286">27</text>
+    <text class="p" x="1264" y="312">9 waiting on review</text>
+  </g>
+
+  <!-- ── Chart card ────────────────────────────────────────────── -->
+  <rect x="280" y="360" width="620" height="330" rx="12" fill="#ffffff" stroke="#e4e2de" />
+  <text class="h2" x="304" y="394">Weekly sessions</text>
+  <text class="p" x="304" y="414">Last twelve weeks</text>
+  <!-- grid -->
+  <g stroke="#ececea" stroke-width="1">
+    <path d="M320 640h560M320 584h560M320 528h560M320 472h560" />
+  </g>
+  <g class="cell" fill="#9a9b9f" font-size="10">
+    <text x="286" y="644">0</text><text x="280" y="588">40</text>
+    <text x="280" y="532">80</text><text x="274" y="476">120</text>
+  </g>
+  <!-- bars -->
+  <g fill="#2f5fd0">
+    <rect x="330" y="576" width="30" height="64" rx="3" />
+    <rect x="376" y="548" width="30" height="92" rx="3" />
+    <rect x="422" y="560" width="30" height="80" rx="3" />
+    <rect x="468" y="512" width="30" height="128" rx="3" />
+    <rect x="514" y="524" width="30" height="116" rx="3" />
+    <rect x="560" y="488" width="30" height="152" rx="3" />
+    <rect x="606" y="500" width="30" height="140" rx="3" />
+    <rect x="652" y="464" width="30" height="176" rx="3" />
+    <rect x="698" y="476" width="30" height="164" rx="3" />
+    <rect x="744" y="444" width="30" height="196" rx="3" />
+    <rect x="790" y="452" width="30" height="188" rx="3" />
+    <rect x="836" y="428" width="30" height="212" rx="3" />
+  </g>
+  <path d="M320 640h560" stroke="#c9c7c3" stroke-width="1.5" />
+  <g class="cell" font-size="10" fill="#9a9b9f">
+    <text x="336" y="660">W1</text><text x="474" y="660">W4</text>
+    <text x="612" y="660">W7</text><text x="750" y="660">W10</text>
+  </g>
+
+  <!-- ── Table card ────────────────────────────────────────────── -->
+  <rect x="920" y="360" width="640" height="330" rx="12" fill="#ffffff" stroke="#e4e2de" />
+  <text class="h2" x="944" y="394">Recent activity</text>
+  <g class="lbl" font-size="10">
+    <text x="944" y="428">NAME</text>
+    <text x="1200" y="428">STATUS</text>
+    <text x="1340" y="428">CHANGE</text>
+    <text x="1470" y="428">DATE</text>
+  </g>
+  <path d="M944 440h592" stroke="#dedbd5" stroke-width="1" />
+  <g class="cell">
+    <text x="944" y="470">Site redesign</text>
+    <text x="1200" y="470" fill="#1f8a4c">Active</text>
+    <text x="1340" y="470">+ 4.8 %</text>
+    <text x="1470" y="470">04 Mar</text>
+
+    <text x="944" y="504">Vendor review</text>
+    <text x="1200" y="504" fill="#b8860b">Pending</text>
+    <text x="1340" y="504">− 0.2 %</text>
+    <text x="1470" y="504">02 Mar</text>
+
+    <text x="944" y="538">Onboarding v2</text>
+    <text x="1200" y="538" fill="#1f8a4c">Active</text>
+    <text x="1340" y="538">+ 12.1 %</text>
+    <text x="1470" y="538">28 Feb</text>
+
+    <text x="944" y="572">Q3 planning</text>
+    <text x="1200" y="572" fill="#9a9b9f">Draft</text>
+    <text x="1340" y="572">—</text>
+    <text x="1470" y="572">26 Feb</text>
+
+    <text x="944" y="606">Data migration</text>
+    <text x="1200" y="606" fill="#c0392b">Blocked</text>
+    <text x="1340" y="606">− 3.4 %</text>
+    <text x="1470" y="606">21 Feb</text>
+
+    <text x="944" y="640">Access audit</text>
+    <text x="1200" y="640" fill="#1f8a4c">Active</text>
+    <text x="1340" y="640">+ 0.9 %</text>
+    <text x="1470" y="640">19 Feb</text>
+  </g>
+  <g stroke="#ececea" stroke-width="1">
+    <path d="M944 482h592M944 516h592M944 550h592M944 584h592M944 618h592" />
+  </g>
+
+  <!-- ── Image / media row ─────────────────────────────────────── -->
+  <defs>
+    <linearGradient id="m1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#123a5c" /><stop offset="1" stop-color="#4fa9a0" />
+    </linearGradient>
+    <linearGradient id="m2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a2740" /><stop offset="1" stop-color="#e0a33c" />
+    </linearGradient>
+    <linearGradient id="m3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2b2b31" /><stop offset="1" stop-color="#6d6f78" />
+    </linearGradient>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#e6e3dd" /><rect width="5" height="10" fill="#cfcbc3" />
+    </pattern>
+  </defs>
+  <rect x="280" y="714" width="300" height="180" rx="12" fill="url(#m1)" />
+  <rect x="600" y="714" width="300" height="180" rx="12" fill="url(#m2)" />
+  <rect x="920" y="714" width="300" height="180" rx="12" fill="url(#m3)" />
+  <rect x="1240" y="714" width="320" height="180" rx="12" fill="url(#hatch)" />
+  <g class="p" fill="#ffffff">
+    <text x="304" y="874">Gradient, cool</text>
+    <text x="624" y="874">Gradient, warm</text>
+    <text x="944" y="874">Near-neutral</text>
+  </g>
+  <text class="p" x="1264" y="874">Fine hatch — watch for moiré</text>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <path d="M280 926h1280" stroke="#dedbd5" stroke-width="1" />
+  <text class="p" x="280" y="956" font-size="11">Placeholder interface. Every label on this backdrop is invented for the purpose of judging a glass panel above it.</text>
+</svg>

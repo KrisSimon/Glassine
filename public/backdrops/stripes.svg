@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img">
+  <!--
+    Stripes — the fastest way to judge refraction.
+
+    A displacement is invisible over a calm surface, no matter how strong it
+    is set. Straight lines are the opposite: the eye reads a 2px bend in a
+    ruled line immediately. Four frequencies and four angles, because a
+    displacement map that looks right on wide bands can still shred fine ones.
+
+    Tiles seamlessly (background-repeat: repeat) so a capsule lands on
+    structure wherever it is placed.
+  -->
+  <defs>
+    <pattern id="v4" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#ffffff" /><rect width="4" height="8" fill="#17171c" />
+    </pattern>
+    <pattern id="v10" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#ffffff" /><rect width="10" height="20" fill="#17171c" />
+    </pattern>
+    <pattern id="v24" width="48" height="48" patternUnits="userSpaceOnUse">
+      <rect width="48" height="48" fill="#ffffff" /><rect width="24" height="48" fill="#17171c" />
+    </pattern>
+
+    <pattern id="h4" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#ffffff" /><rect width="8" height="4" fill="#17171c" />
+    </pattern>
+    <pattern id="h10" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#ffffff" /><rect width="20" height="10" fill="#17171c" />
+    </pattern>
+    <pattern id="h24" width="48" height="48" patternUnits="userSpaceOnUse">
+      <rect width="48" height="48" fill="#ffffff" /><rect width="48" height="24" fill="#17171c" />
+    </pattern>
+
+    <pattern id="d10" width="28.284" height="28.284" patternUnits="userSpaceOnUse"
+             patternTransform="rotate(45)">
+      <rect width="28.284" height="28.284" fill="#ffffff" />
+      <rect width="14.142" height="28.284" fill="#17171c" />
+    </pattern>
+    <pattern id="d10b" width="28.284" height="28.284" patternUnits="userSpaceOnUse"
+             patternTransform="rotate(-45)">
+      <rect width="28.284" height="28.284" fill="#ffffff" />
+      <rect width="14.142" height="28.284" fill="#17171c" />
+    </pattern>
+
+    <!-- One coloured set: chromatic aberration at the rim only shows on colour. -->
+    <pattern id="c10" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#f4b400" /><rect width="12" height="24" fill="#0b4f9e" />
+    </pattern>
+    <pattern id="c10b" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#e34234" /><rect width="24" height="12" fill="#0d7a5f" />
+    </pattern>
+
+    <!-- Frequency sweep: the period grows continuously, so the exact point
+         where magnification turns into mush becomes readable. -->
+    <pattern id="sweep" width="600" height="150" patternUnits="userSpaceOnUse">
+      <rect width="600" height="150" fill="#ffffff" />
+      <g fill="#17171c">
+        <rect x="0" y="0" width="1.5" height="150" /><rect x="4" y="0" width="1.5" height="150" />
+        <rect x="9" y="0" width="2" height="150" /><rect x="15" y="0" width="2" height="150" />
+        <rect x="22" y="0" width="2.5" height="150" /><rect x="30" y="0" width="2.5" height="150" />
+        <rect x="39" y="0" width="3" height="150" /><rect x="49" y="0" width="3" height="150" />
+        <rect x="60" y="0" width="4" height="150" /><rect x="73" y="0" width="4" height="150" />
+        <rect x="88" y="0" width="5" height="150" /><rect x="105" y="0" width="5" height="150" />
+        <rect x="124" y="0" width="6" height="150" /><rect x="146" y="0" width="7" height="150" />
+        <rect x="171" y="0" width="8" height="150" /><rect x="199" y="0" width="9" height="150" />
+        <rect x="230" y="0" width="10" height="150" /><rect x="264" y="0" width="12" height="150" />
+        <rect x="302" y="0" width="14" height="150" /><rect x="344" y="0" width="16" height="150" />
+        <rect x="390" y="0" width="19" height="150" /><rect x="441" y="0" width="22" height="150" />
+        <rect x="497" y="0" width="26" height="150" /><rect x="559" y="0" width="30" height="150" />
+      </g>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#ffffff" />
+
+  <!-- Row 1 · vertical, three frequencies -->
+  <rect x="0" y="0" width="400" height="300" fill="url(#v4)" />
+  <rect x="400" y="0" width="400" height="300" fill="url(#v10)" />
+  <rect x="800" y="0" width="400" height="300" fill="url(#v24)" />
+
+  <!-- Row 2 · horizontal, three frequencies -->
+  <rect x="0" y="300" width="400" height="300" fill="url(#h4)" />
+  <rect x="400" y="300" width="400" height="300" fill="url(#h10)" />
+  <rect x="800" y="300" width="400" height="300" fill="url(#h24)" />
+
+  <!-- Row 3 · diagonals and colour -->
+  <rect x="0" y="600" width="300" height="300" fill="url(#d10)" />
+  <rect x="300" y="600" width="300" height="300" fill="url(#d10b)" />
+  <rect x="600" y="600" width="300" height="300" fill="url(#c10)" />
+  <rect x="900" y="600" width="300" height="300" fill="url(#c10b)" />
+
+  <!-- Row 4 · continuous frequency sweep, twice -->
+  <rect x="0" y="900" width="1200" height="150" fill="url(#sweep)" />
+  <g transform="translate(1200,1200) rotate(180)">
+    <rect x="0" y="0" width="1200" height="150" fill="url(#sweep)" />
+  </g>
+
+  <!-- Hard field borders: the tile grid is itself a set of edges. -->
+  <g stroke="#17171c" stroke-width="3" fill="none">
+    <path d="M0 300h1200M0 600h1200M0 900h1200M0 1050h1200" />
+    <path d="M400 0v600M800 0v600M300 600v300M600 600v300M900 600v300" />
+  </g>
+</svg>

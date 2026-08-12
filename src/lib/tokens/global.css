@@ -1,0 +1,51 @@
+/* Page-level defaults for the demo app and Storybook.
+   Components do not depend on this file — import it only if you want the
+   reset and the focus ring too. */
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--l-font-sans);
+  color: var(--brand-ink);
+  background: var(--l-canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:where(button) {
+  font: inherit;
+  color: inherit;
+}
+
+:where(img, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+/* Focus shown for keyboard operation only — but always shown. */
+:where(a, button, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

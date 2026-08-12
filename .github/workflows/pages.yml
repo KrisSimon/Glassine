@@ -1,0 +1,60 @@
+name: Storybook to Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A queued deploy should wait for the running one rather than cancel it —
+# cancelling mid-deploy can leave the site half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run check
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      # A project site lives at /<repo>/. `.storybook/main.ts` passes this to
+      # Vite's `base` and rewrites the absolute /backdrops/* references to
+      # match — without it every story renders glass over a 404.
+      - name: Build Storybook
+        run: npm run build-storybook -- --output-dir storybook-static
+        env:
+          STORYBOOK_BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

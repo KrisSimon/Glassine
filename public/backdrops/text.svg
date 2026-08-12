@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000" role="img">
+  <!--
+    Running text — the hardest backdrop for a glass panel.
+
+    Over image edges a refracting block reads instantly. Over body copy it
+    turns into smear: 44 pixels of panel height are simply not enough travel
+    for letterforms to bend and still be recognised. Five sizes, because the
+    size at which magnification stops working is what you actually need to
+    know.
+
+    Drawn at real reading sizes and tiled at original scale — scaled up, the
+    text would no longer have the size it has on a real page.
+  -->
+  <style>
+    text { font-family: Georgia, "Times New Roman", serif; fill: #1b1c1e; }
+    .ui { font-family: Helvetica, Arial, sans-serif; }
+    .head { font-size: 40px; font-weight: 700; letter-spacing: -0.6px; }
+    .sub { font-size: 22px; font-weight: 700; }
+    .body { font-size: 15px; }
+    .small { font-size: 12px; fill: #55565a; }
+    .tiny { font-size: 9px; fill: #7a7b80; }
+  </style>
+
+  <rect width="1400" height="1000" fill="#fbfaf8" />
+
+  <!-- Column rules: straight lines through a page of text, so the bend is
+       measurable even where the letters have already turned to grey. -->
+  <g stroke="#dedbd5" stroke-width="1">
+    <path d="M470 60V940M930 60V940" />
+  </g>
+  <path d="M60 116h1280" stroke="#1b1c1e" stroke-width="2" />
+
+  <text class="head" x="60" y="98">Reading size is the whole question</text>
+
+  <!-- Column 1 -->
+  <text class="sub" x="60" y="168">On magnification</text>
+  <text class="body" x="60" y="204">A blur leaves the backdrop where it was and</text>
+  <text class="body" x="60" y="228">only softens it. A solid block of glass moves</text>
+  <text class="body" x="60" y="252">it: the centre appears enlarged, and close to</text>
+  <text class="body" x="60" y="276">the edge contours tip away, because that is</text>
+  <text class="body" x="60" y="300">where the light path bends hardest of all.</text>
+  <text class="body" x="60" y="324">You can only see the difference over an edge.</text>
+  <text class="body" x="60" y="348">Over a calm surface there is nothing to see,</text>
+  <text class="body" x="60" y="372">however strongly the effect is dialled in.</text>
+
+  <text class="body" x="60" y="420">The displacement map says, for every point,</text>
+  <text class="body" x="60" y="444">where the pixel underneath is fetched from.</text>
+  <text class="body" x="60" y="468">Red shifts horizontally, green vertically, and</text>
+  <text class="body" x="60" y="492">the neutral value 128 means: leave it alone.</text>
+  <text class="body" x="60" y="516">Both shifts point inwards, which is not a</text>
+  <text class="body" x="60" y="540">matter of taste — a backdrop filter only knows</text>
+  <text class="body" x="60" y="564">pixels inside the element, so a map reaching</text>
+  <text class="body" x="60" y="588">outwards gets an empty margin back.</text>
+
+  <text class="small" x="60" y="636">Small print sits at twelve pixels and is the</text>
+  <text class="small" x="60" y="656">first thing to disappear under a heavy blur.</text>
+  <text class="small" x="60" y="676">Footnotes, captions, legal lines, table cells —</text>
+  <text class="small" x="60" y="696">the parts of a page nobody designs for glass.</text>
+
+  <text class="tiny" x="60" y="736">Nine pixels. At this size a displacement of two pixels already</text>
+  <text class="tiny" x="60" y="752">destroys the word shape, and reading turns into guessing.</text>
+  <text class="tiny" x="60" y="768">This is the line that decides how far magnify may go.</text>
+
+  <!-- Column 2 -->
+  <text class="sub" x="510" y="168">On scattering</text>
+  <text class="body" x="510" y="204">Saturation is the more important half of the</text>
+  <text class="body" x="510" y="228">frosted look. It pulls colour up out of the</text>
+  <text class="body" x="510" y="252">backdrop, so the panel reads as connected to</text>
+  <text class="body" x="510" y="276">the page rather than pasted onto it.</text>
+  <text class="body" x="510" y="300">Blur alone gives you milk, not glass.</text>
+
+  <text class="body" x="510" y="348">Once a displacement is in play, almost no blur</text>
+  <text class="body" x="510" y="372">is left — under one pixel. A twenty-pixel blur</text>
+  <text class="body" x="510" y="396">would dissolve exactly the contours whose</text>
+  <text class="body" x="510" y="420">bending you are trying to show.</text>
+
+  <text class="sub" x="510" y="480">On light</text>
+  <text class="body" x="510" y="516">The illusion lives in the edge, not in the</text>
+  <text class="body" x="510" y="540">filter. A bright line along the top, a bloom in</text>
+  <text class="body" x="510" y="564">the lower left, and — for a solid block — the</text>
+  <text class="body" x="510" y="588">bevel running all the way round, right where</text>
+  <text class="body" x="510" y="612">the image behind tips away. That ring is what</text>
+  <text class="body" x="510" y="636">turns distorted into thick.</text>
+
+  <text class="body" x="510" y="684">Turn the specular layer off and what remains</text>
+  <text class="body" x="510" y="708">is a milky rectangle. That is the control.</text>
+
+  <text class="small" x="510" y="756">Shadows are tinted warm rather than neutral grey.</text>
+  <text class="small" x="510" y="776">A grey shadow makes an interface element look cut</text>
+  <text class="small" x="510" y="796">out and dropped onto a photograph.</text>
+
+  <!-- Column 3 · dense UI-ish text, sans, tighter leading -->
+  <text class="sub ui" x="970" y="168">Interface copy</text>
+  <text class="body ui" x="970" y="200">Settings</text>
+  <text class="small ui" x="970" y="222">Appearance, language and region</text>
+  <text class="body ui" x="970" y="256">Notifications</text>
+  <text class="small ui" x="970" y="278">Email, push and in-app alerts</text>
+  <text class="body ui" x="970" y="312">Members</text>
+  <text class="small ui" x="970" y="334">Twelve people, three pending invites</text>
+  <text class="body ui" x="970" y="368">Billing</text>
+  <text class="small ui" x="970" y="390">Plan, invoices and payment method</text>
+  <text class="body ui" x="970" y="424">Integrations</text>
+  <text class="small ui" x="970" y="446">Connected services and webhooks</text>
+  <text class="body ui" x="970" y="480">Security</text>
+  <text class="small ui" x="970" y="502">Sessions, keys and two-factor</text>
+
+  <g stroke="#dedbd5" stroke-width="1">
+    <path d="M970 236h370M970 292h370M970 348h370M970 404h370M970 460h370M970 516h370" />
+  </g>
+
+  <!-- A dense numeric block: tabular figures bend very visibly. -->
+  <g class="ui" font-size="12" fill="#26262b">
+    <text x="970" y="560">01  0.0142   ·   +2.4 %   ·   1 204</text>
+    <text x="970" y="582">02  0.0138   ·   −0.7 %   ·   1 190</text>
+    <text x="970" y="604">03  0.0151   ·   +6.1 %   ·   1 263</text>
+    <text x="970" y="626">04  0.0149   ·   −1.3 %   ·   1 246</text>
+    <text x="970" y="648">05  0.0155   ·   +4.0 %   ·   1 296</text>
+    <text x="970" y="670">06  0.0161   ·   +3.9 %   ·   1 347</text>
+    <text x="970" y="692">07  0.0158   ·   −1.9 %   ·   1 321</text>
+    <text x="970" y="714">08  0.0164   ·   +3.8 %   ·   1 372</text>
+  </g>
+
+  <text class="tiny" x="970" y="760">Tabular figures are the strictest test of all: a column of</text>
+  <text class="tiny" x="970" y="776">digits that no longer aligns is wrong at a glance.</text>
+
+  <!-- Baseline ruler along the bottom: a measurable reference. -->
+  <g transform="translate(60,880)">
+    <path d="M0 0h1280" stroke="#1b1c1e" stroke-width="1.5" />
+    <g stroke="#1b1c1e" stroke-width="1">
+      <path d="M0 0v14M40 0v7M80 0v7M120 0v7M160 0v14M200 0v7M240 0v7M280 0v7M320 0v14
+               M360 0v7M400 0v7M440 0v7M480 0v14M520 0v7M560 0v7M600 0v7M640 0v14
+               M680 0v7M720 0v7M760 0v7M800 0v14M840 0v7M880 0v7M920 0v7M960 0v14
+               M1000 0v7M1040 0v7M1080 0v7M1120 0v14M1160 0v7M1200 0v7M1240 0v7M1280 0v14" />
+    </g>
+    <g class="ui" font-size="10" fill="#55565a">
+      <text x="-3" y="30">0</text><text x="145" y="30">160</text><text x="305" y="30">320</text>
+      <text x="465" y="30">480</text><text x="625" y="30">640</text><text x="785" y="30">800</text>
+      <text x="945" y="30">960</text><text x="1100" y="30">1120</text><text x="1258" y="30">1280</text>
+    </g>
+  </g>
+
+  <text class="tiny ui" x="60" y="960">Every line of this backdrop is placeholder copy written for this test image. It describes the effect it is used to judge.</text>
+</svg>

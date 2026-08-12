@@ -1,0 +1,185 @@
+/* =====================================================================
+   Design tokens — the glass layer
+
+   Two levels:
+     1. Primitives (--l-*)               raw values, never read directly
+                                         by a component
+     2. Semantics  (--glass-*, --brand-*) what components actually read
+
+   Importing this file is optional. Every component carries the same
+   values inline as `var(--x, fallback)`, so it renders correctly when
+   dropped into a project that has none of this. Import the file — or
+   redeclare individual custom properties on `:root` or on any ancestor —
+   to retheme all of them at once.
+   ===================================================================== */
+
+:root {
+  /* ---------- 1 · Primitives ---------------------------------------- */
+
+  /* Accent. One colour on the whole glass layer, which is exactly why it
+     reads as a signal. Override --brand-accent to match your product. */
+  --l-accent-500: #e5484d;
+  --l-accent-600: #b8353a;
+  --l-accent-050: #fdeef0;
+
+  /* Neutral ink */
+  --l-ink-900: #1b1c1e;
+  --l-ink-700: #26262b;
+  --l-ink-500: #55565a;
+  --l-ink-300: #8a8b8f;
+  --l-line: #e4e3e0;
+  --l-canvas: #f4f3f1;
+
+  /* Light — the glass layer is built out of light, not out of colour */
+  --l-light-100: rgba(255, 255, 255, 1);
+  --l-light-95: rgba(255, 255, 255, 0.95);
+  --l-light-80: rgba(255, 255, 255, 0.8);
+  --l-light-62: rgba(255, 255, 255, 0.62);
+  --l-light-52: rgba(255, 255, 255, 0.52);
+  --l-light-44: rgba(255, 255, 255, 0.44);
+  --l-light-34: rgba(255, 255, 255, 0.34);
+  --l-light-20: rgba(255, 255, 255, 0.2);
+  --l-light-00: rgba(255, 255, 255, 0);
+
+  /* Shadow — warm, not neutral grey */
+  --l-shade-24: rgba(12, 12, 22, 0.24);
+  --l-shade-15: rgba(12, 12, 22, 0.15);
+  --l-shade-10: rgba(60, 60, 75, 0.1);
+
+  /* Spacing rhythm (4px base) */
+  --l-space-1: 2px;
+  --l-space-2: 4px;
+  --l-space-3: 6px;
+  --l-space-4: 8px;
+  --l-space-5: 12px;
+  --l-space-6: 16px;
+  --l-space-7: 24px;
+  --l-space-8: 32px;
+
+  --l-radius-pill: 999px;
+  --l-radius-md: 14px;
+
+  /* Motion */
+  --l-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --l-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --l-dur-fast: 140ms;
+  --l-dur-base: 220ms;
+  --l-dur-slow: 420ms;
+
+  /* Type */
+  --l-font-sans:
+    "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Arial, sans-serif;
+
+  /* ---------- 2 · Semantics ----------------------------------------- */
+
+  /* Brand */
+  --brand-accent: var(--l-accent-500);
+  --brand-accent-ink: var(--l-accent-600);
+  --brand-accent-wash: var(--l-accent-050);
+  --brand-ink: var(--l-ink-900);
+  --brand-ink-muted: var(--l-ink-500);
+
+  /* Glass — frosted body */
+  --glass-blur: 22px;
+  --glass-saturate: 190%;
+  --glass-tint: linear-gradient(
+    150deg,
+    var(--l-light-52),
+    var(--l-light-20) 48%,
+    var(--l-light-44)
+  );
+  --glass-border: 0.75px solid var(--l-light-62);
+  --glass-ink: var(--l-ink-700);
+
+  /* Glass — solid block (refraction instead of frost)
+     The displacement is only visible when very little is scattered: a 22px
+     blur dissolves exactly the contours whose bending you want to see. So
+     the refracting layer gets its own, far more restrained scattering. */
+  --glass-lens-blur: 0.8px;
+  --glass-lens-saturate: 140%;
+  --glass-lens-brightness: 1.02;
+
+  /* Less body colour than the frosted variant — the body now comes from the
+     displaced image, not from a white gradient. */
+  --glass-lens-tint: linear-gradient(
+    150deg,
+    var(--l-light-20),
+    rgba(255, 255, 255, 0.06) 48%,
+    rgba(255, 255, 255, 0.16)
+  );
+  --glass-lens-border: 0.75px solid var(--l-light-52);
+
+  /* The bevel: light running all the way round the rim, right where the
+     image behind tips away. That ring is what turns distorted into thick. */
+  --glass-bevel:
+    inset 0 1.2px 0 var(--l-light-100),
+    inset 0 0 0 0.75px var(--l-light-34),
+    inset 10px 0 16px -12px var(--l-light-80),
+    inset -10px 0 16px -12px var(--l-light-80),
+    inset 0 -12px 18px -14px var(--l-light-80),
+    inset 0 12px 18px -16px var(--l-light-62);
+
+  /* Glass — light and shadow (the edge carries the illusion) */
+  --glass-shadow:
+    0 18px 40px var(--l-shade-24), 0 6px 12px var(--l-shade-15),
+    0 0 0 0.5px var(--l-shade-10);
+  --glass-inner-light:
+    inset 0 1.2px 0 var(--l-light-100),
+    inset 0 -10px 18px var(--l-light-34),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.55);
+
+  /* Glass — controls sitting on top of the glass */
+  --control-bg: linear-gradient(160deg, var(--l-light-95), var(--l-light-80));
+  --control-border: 0.5px solid var(--l-light-95);
+  --control-shadow:
+    inset 0 0.5px 0 var(--l-light-100), 0 1px 2px rgba(20, 20, 30, 0.18);
+  --control-ink: var(--l-ink-700);
+
+  /* Stacking */
+  --z-content: 1;
+  --z-overlay: 900;
+  --z-glass-layer: 1000;
+
+  /* Focus — has to stay visible on a photo AND on white */
+  --focus-ring: 0 0 0 2px rgba(255, 255, 255, 0.9), 0 0 0 4px var(--brand-accent);
+}
+
+/* ---------------------------------------------------------------------
+   Fallback: no backdrop-filter (older engines)
+   → the glass turns more opaque so text stays readable.
+   ------------------------------------------------------------------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --glass-tint: linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.78) 48%,
+      rgba(255, 255, 255, 0.86)
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Accessibility: transparency is a preference, not a prerequisite.
+   ------------------------------------------------------------------- */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-blur: 0px;
+    --glass-saturate: 100%;
+    --glass-tint: linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.97),
+      rgba(255, 255, 255, 0.94)
+    );
+    --glass-border: 1px solid rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --glass-border: 1px solid rgba(0, 0, 0, 0.55);
+    --glass-ink: #000;
+    --control-ink: #000;
+  }
+}

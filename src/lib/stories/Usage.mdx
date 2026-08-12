@@ -1,0 +1,404 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Usage" />
+
+# Usage
+
+Everything on this page is copy-paste ready. Switch the **backdrop** in the
+toolbar while you read — the recipes below all assume there is something
+underneath worth looking through.
+
+---
+
+## Install
+
+```bash
+npm install glassine
+```
+
+`GlassSurface` needs nothing else. Svelte 5 is a peer dependency; the component
+uses runes (`$props`, `$state`, `$derived`, `$effect`) and snippets, so it will
+not run on Svelte 4.
+
+```svelte
+<script>
+  import { GlassSurface } from "glassine";
+</script>
+
+<GlassSurface>
+  <span style="padding: 10px 20px">Hello</span>
+</GlassSurface>
+```
+
+---
+
+## Props
+
+| Prop | Type | Default | What it does |
+| --- | --- | --- | --- |
+| `shape` | `"pill" \| "circle" \| "rounded" \| "square"` | `"pill"` | Corner radius preset |
+| `radius` | `string \| number` | — | Explicit radius; overrides `shape` |
+| `blur` | `number` (px) | `22` | Scattering. With refraction on, the panel uses a much smaller internal value instead |
+| `saturate` | `number` (%) | `190` | Pulls colour up out of the backdrop |
+| `refraction` | `boolean \| "auto"` | `"auto"` | Solid-block displacement. `false` gives frosted glass |
+| `magnify` | `number` | `1.4` | The lens. Displacement grows linearly with distance from the centre |
+| `rim` | `number` (px) | `12` | Width of the rim zone where contours tip |
+| `rimBend` | `number` (px) | `12` | How hard they tip at the outermost edge |
+| `chroma` | `number` | `0.015` | Colour fringe at the rim. `0` turns it off |
+| `elevation` | `"flat" \| "raised" \| "floating"` | `"floating"` | Shadow depth |
+| `interactive` | `boolean` | `false` | Lift and deeper shadow on hover |
+| `specular` | `boolean` | `true` | Draw the bright edge and the bloom |
+| `element` | tag name | `"div"` | What tag to render |
+| `class`, `style` | `string` | — | Passed straight through |
+
+Any remaining attribute is forwarded to the rendered element, so `onclick`,
+`href`, `aria-*`, `data-*` and the rest work as you would expect.
+
+### Choosing values
+
+- **`magnify` between 1.2 and 1.5** is usually right. At 1.0 there is no lens at
+  all; by 1.8 the effect is unmissable and body copy underneath has stopped being
+  readable.
+- **`rim` / `rimBend` are what make it read as *thick***, not the magnification.
+  Turn `rimBend` to 0 and the panel immediately reads as a flat window.
+- **Small panels need small rims.** A 34px ball with `rim: 24` has no calm centre
+  left. `lens.ts` clamps the rim to a third of each axis and the bend to a sixth,
+  but landing near those clamps is a sign the values are wrong for the size.
+- **Over body copy, turn the displacement off.** 44 pixels of panel height is not
+  enough travel for letterforms to bend and stay recognisable. `refraction={false}`
+  is the honest answer there — see the *Running text* backdrop.
+
+---
+
+## Sizing
+
+`GlassSurface` is `display: inline-flex` and has no size of its own. It takes
+whatever its content or your CSS gives it.
+
+```svelte
+<!-- sized by content -->
+<GlassSurface shape="pill">
+  <span style="padding: 12px 24px">Sized by its content</span>
+</GlassSurface>
+
+<!-- sized explicitly -->
+<GlassSurface shape="rounded" style="width: 420px; height: 260px" />
+
+<!-- sized by the parent -->
+<div style="display: grid; height: 300px">
+  <GlassSurface shape="rounded" class="fill" />
+</div>
+<style>
+  :global(.fill) { width: 100%; height: 100%; }
+</style>
+```
+
+The refraction is recomputed from the measured size through a `ResizeObserver`, so
+responsive panels work — but note that each resize rebuilds the SVG filter. Do not
+animate the width of a glass panel at 60fps.
+
+---
+
+## Recipes
+
+### A floating navbar
+
+```svelte
+<script>
+  import { GlassSurface } from "glassine";
+</script>
+
+<nav class="nav">
+  <GlassSurface shape="pill" elevation="floating">
+    <div class="nav__inner">
+      <a href="/">Home</a>
+      <a href="/work">Work</a>
+      <a href="/about">About</a>
+    </div>
+  </GlassSurface>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+  .nav__inner {
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+  }
+  .nav__inner a {
+    padding: 8px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: inherit;
+  }
+  .nav__inner a:hover { background: rgba(255, 255, 255, 0.35); }
+</style>
+```
+
+`position: fixed` on the wrapper is what keeps it in place while the page scrolls.
+If your overlay lives inside a scroll container rather than on the page itself,
+use `GlassLayer` with `strategy="sticky"` instead — `fixed` would escape the
+container and pin itself to the window.
+
+### A card
+
+```svelte
+<GlassSurface shape="rounded" elevation="raised" magnify={1.2}>
+  <article class="card">
+    <h3>Refraction</h3>
+    <p>A solid block displaces the backdrop instead of merely softening it.</p>
+  </article>
+</GlassSurface>
+
+<style>
+  .card { padding: 24px 28px; max-width: 40ch; }
+  .card h3 { margin: 0 0 8px; font-size: 16px; }
+  .card p  { margin: 0; font-size: 14px; line-height: 1.6; opacity: 0.85; }
+</style>
+```
+
+Note `magnify={1.2}`: cards contain text, and text is what a strong lens destroys
+first.
+
+### A button
+
+`element` makes the surface render as whatever tag you need, and everything else
+is forwarded to it.
+
+```svelte
+<GlassSurface
+  element="button"
+  shape="pill"
+  interactive
+  onclick={() => count++}
+>
+  <span style="padding: 10px 22px; font-weight: 600">Clicked {count} times</span>
+</GlassSurface>
+```
+
+### A modal
+
+```svelte
+<div class="scrim">
+  <GlassSurface shape="rounded" radius="20px" elevation="floating" magnify={1.15}>
+    <div class="dialog">
+      <h2>Delete this project?</h2>
+      <p>This cannot be undone.</p>
+      <div class="dialog__actions">
+        <button onclick={cancel}>Cancel</button>
+        <button onclick={confirm}>Delete</button>
+      </div>
+    </div>
+  </GlassSurface>
+</div>
+
+<style>
+  .scrim {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(10, 10, 18, 0.35);
+  }
+  .dialog { padding: 28px 32px; max-width: 42ch; }
+</style>
+```
+
+One trap: the scrim must not carry a `filter`, an `opacity < 1`, or a running
+animation. Any of those makes it a *backdrop root*, and the panel's
+`backdrop-filter` then filters the scrim's own empty space rather than the page
+behind it — silently, with no error anywhere. Use `rgba()` on the background
+instead of `opacity`.
+
+### A macOS-style dock
+
+Prebuilt, with magnification, running dots, badges, the bounce and keyboard
+handling included:
+
+```svelte
+<script>
+  import { Dock } from "glassine";
+
+  const apps = [
+    { id: "files", label: "Files", icon: "grid", href: "#",
+      tint: "linear-gradient(180deg, #6ec3f5, #1f7fd4)", running: true },
+    { id: "mail", label: "Mail", icon: "mail", href: "#",
+      tint: "linear-gradient(180deg, #4aa8ff, #1160cc)", count: 12 },
+    { id: "trash", label: "Trash", icon: "inbox", href: "#",
+      tint: "linear-gradient(180deg, rgba(255,255,255,.5), rgba(190,195,205,.55))",
+      separatorBefore: true },
+  ];
+</script>
+
+<Dock items={apps} size={52} magnification={1.8} />
+```
+
+See [Organisms → Dock](/docs/organisms-dock--docs). Three notes if you build your
+own version of this, because each one cost a rewrite:
+
+**The tiles must live outside the glass.** `GlassSurface` clips its content — it
+has to, the refraction is drawn inside it — so a magnified tile placed inside gets
+sliced off at the top edge. Put the plate *behind* the row as an absolutely
+positioned sibling and give the row headroom above itself.
+
+**Let the plate grow, but not the layout.** Growing the slot widths and letting
+flexbox absorb it feeds back on itself: the row widens, a centred dock's left edge
+moves, the pointer offset measured against that edge changes, and the tiles
+shiver. Keep the slots fixed, magnify with `transform`, compute the sideways push
+— and then derive the plate from *where the tiles ended up*. It grows outward past
+the row exactly as the real dock does, with nothing feeding back.
+
+**Smooth in JavaScript, not in CSS.** A CSS transition on the tiles looks right
+until the plate has to keep up: `width` is a layout property and cannot be
+transitioned in step with a `transform`, so the plate and the tiles drift apart
+and the dock tears. Smooth one value per frame and derive everything from it.
+
+There is a fourth, and it lives in `GlassSurface` rather than in the dock: a panel
+whose size changes every frame used to rebuild its whole SVG filter every frame,
+which reads as flicker and torn edges. The committed size now settles for ~120ms
+before the lens is rebuilt, and the stale filter keeps drawing correctly in the
+meantime — its maps are `feImage`s filling the filter region, so they stretch to
+whatever size the element currently is. If you animate the size of a glass panel,
+this is why it does not fall apart.
+
+### A dock, by hand
+
+If you only want the shelf and not the behaviour:
+
+```svelte
+<script>
+  import { GlassSurface, GlassButton, GlassDivider, Icon } from "glassine";
+</script>
+
+<GlassSurface shape="pill" elevation="floating">
+  <div style="display: flex; align-items: center; gap: 8px; padding: 8px">
+    <GlassButton label="Search" size="lg"><Icon name="search" size={22} /></GlassButton>
+    <GlassButton label="Calendar" size="lg"><Icon name="calendar" size={22} /></GlassButton>
+    <GlassButton label="Messages" size="lg"><Icon name="mail" size={22} /></GlassButton>
+    <GlassDivider length={26} />
+    <GlassButton label="Settings" size="lg"><Icon name="settings" size={22} /></GlassButton>
+  </div>
+</GlassSurface>
+```
+
+Or a row of shortcuts with keyboard handling included:
+
+```svelte
+<script>
+  import { GlassBar } from "glassine";
+
+  const items = [
+    { id: "profile", label: "Profile", icon: "user", href: "/profile" },
+    { id: "inbox", label: "Inbox", icon: "inbox", href: "/inbox", count: 4 },
+  ];
+</script>
+
+<GlassBar {items} messageCount={3} onopenitem={(item) => goto(item.href)} />
+```
+
+---
+
+## Theming
+
+Every value is a custom property with a built-in fallback. Declare any of them on
+`:root`, or on a container to retheme one region.
+
+```css
+:root {
+  /* scattering */
+  --glass-blur: 22px;
+  --glass-saturate: 190%;
+
+  /* body, border, ink */
+  --glass-tint: linear-gradient(150deg, rgba(255,255,255,.52), rgba(255,255,255,.2) 48%, rgba(255,255,255,.44));
+  --glass-border: 0.75px solid rgba(255, 255, 255, 0.62);
+  --glass-ink: #26262b;
+
+  /* the solid-block variant: much less scattering, much less body colour */
+  --glass-lens-blur: 0.8px;
+  --glass-lens-saturate: 140%;
+  --glass-lens-brightness: 1.02;
+  --glass-lens-tint: linear-gradient(150deg, rgba(255,255,255,.2), rgba(255,255,255,.06) 48%, rgba(255,255,255,.16));
+  --glass-lens-border: 0.75px solid rgba(255, 255, 255, 0.52);
+
+  /* light and shadow */
+  --glass-shadow: 0 18px 40px rgba(12,12,22,.24), 0 6px 12px rgba(12,12,22,.15), 0 0 0 .5px rgba(60,60,75,.1);
+  --glass-inner-light: inset 0 1.2px 0 #fff, inset 0 -10px 18px rgba(255,255,255,.34), inset 0 -1px 0 rgba(255,255,255,.55);
+  --glass-bevel: /* the ring that turns "distorted" into "thick" */;
+
+  /* the one accent on the whole layer */
+  --brand-accent: #e5484d;
+}
+```
+
+### Glass on a dark UI
+
+The surface is built out of white light, so on a dark product you want less of it
+and a darker body:
+
+```css
+.dark {
+  --glass-tint: linear-gradient(150deg, rgba(255,255,255,.14), rgba(255,255,255,.04) 48%, rgba(255,255,255,.1));
+  --glass-border: 0.75px solid rgba(255, 255, 255, 0.22);
+  --glass-ink: #f2f1ef;
+  --glass-shadow: 0 18px 40px rgba(0,0,0,.5), 0 6px 12px rgba(0,0,0,.35);
+}
+```
+
+---
+
+## Things that will bite you
+
+These all cost real time to find, because none of them produces an error.
+
+**The backdrop disappears.** An ancestor with `filter`, `opacity < 1` or a running
+animation becomes a *backdrop root*. Everything behind it stops counting as the
+backdrop of its children, and every `backdrop-filter` below filters empty space.
+`animation-fill-mode: both` makes that permanent. `GlassLayer` removes its own
+entrance animation once it has finished for exactly this reason.
+
+**Nothing is visible over a calm surface.** A displacement can only be seen over
+edges. Over a gradient it is invisible however hard you dial it in — the panel is
+not broken, the backdrop is.
+
+**It looks right in Chrome and flat in Safari.** Chrome resolves `filter: url(#…)`
+lazily; WebKit resolves it when the element is inserted and keeps that resolution.
+If the filter is not in the document at that moment, the reference stays dead
+forever. `GlassSurface` handles this by rebuilding the filter and the layer
+together under a new id.
+
+**Changing `magnify` does nothing in Safari.** WebKit will not repaint a
+once-filtered layer while its `backdrop-filter` is unchanged — not even when both
+the filter and the element are replaced. `GlassSurface` carries a thousandth of a
+pixel of deviation into the scattering on every change to force the repaint.
+
+**A `transform` above the glass makes the backdrop jump — in Safari and
+Firefox only.** In echo mode the backdrop copy is held by
+`background-attachment: fixed`, and the CSS Transforms spec makes a
+transformed element the containing block for *descendant fixed background
+attachments*. So a transform on the surface or on **any ancestor of it** —
+even a 1px hover lift, even `translateY(0)` — re-anchors that copy from the
+viewport to that element: the panel shows a slice of backdrop from the wrong
+place, at the wrong zoom. Chromium never reproduces it, because Chromium uses
+the `real` path. If you need to move a glass panel, use `position: relative`
+with `top`/`left`, or subscribe to `onmode` and only transform when it is not
+`"echo"`. This is why `GlassSurface` lifts with `top` rather than
+`translateY`, why `GlassLayer` centres with flex rather than
+`translateX(-50%)`, and why `GlassPen` scales its icon rather than itself.
+
+**Firefox stays frosted.** Gecko never filters the result of a `backdrop-filter`.
+It only shows the displacement in echo mode, which needs the environment to supply
+a copy of the backdrop. Decide early whether a layer that looks different in one
+engine is acceptable, or whether frosted glass should apply everywhere.
+
+Each of these is written up at the point in the source where it matters —
+`GlassSurface.svelte` and `lens.ts` are worth reading if you plan to build on
+this rather than just use it.

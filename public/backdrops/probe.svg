@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img">
+  <!--
+    Test chart for refraction.
+
+    A frosted panel can be judged over anything; a displacement only over
+    structures you recognise. So this holds nothing but edges: stripes in
+    four frequencies and angles, a checkerboard, rings, a grid, a dot
+    raster, hard colour boundaries, a labelled ruler — and text in five
+    sizes, because letterforms are where magnification first turns to smear.
+
+    Densely packed throughout (a grid of 200px fields): a panel lands
+    wherever it lands, and if it lands on a calm area you see nothing. So
+    every field carries structure, and the field boundaries are themselves
+    hard edges.
+
+    Deliberately mostly achromatic — otherwise you end up judging the
+    colours of the backdrop instead of the glass.
+  -->
+  <defs>
+    <pattern id="s6" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#fff" /><rect width="3" height="6" fill="#141419" />
+    </pattern>
+    <pattern id="s14" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" fill="#fff" /><rect width="7" height="14" fill="#141419" />
+    </pattern>
+    <pattern id="s30" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#fff" /><rect width="15" height="30" fill="#141419" />
+    </pattern>
+    <pattern id="sh" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(90)">
+      <rect width="16" height="16" fill="#fff" /><rect width="8" height="16" fill="#141419" />
+    </pattern>
+    <pattern id="d45" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="20" fill="#fff" /><rect width="10" height="20" fill="#141419" />
+    </pattern>
+    <pattern id="d135" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+      <rect width="20" height="20" fill="#fff" /><rect width="10" height="20" fill="#141419" />
+    </pattern>
+    <pattern id="check" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#fff" />
+      <rect width="12" height="12" fill="#141419" /><rect x="12" y="12" width="12" height="12" fill="#141419" />
+    </pattern>
+    <pattern id="check-s" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#fff" />
+      <rect width="5" height="5" fill="#141419" /><rect x="5" y="5" width="5" height="5" fill="#141419" />
+    </pattern>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#fbfaf8" />
+      <path d="M0 0H10M0 0V10" stroke="#141419" stroke-width="0.75" fill="none" />
+    </pattern>
+    <pattern id="grid-w" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#141419" />
+      <path d="M0 0H24M0 0V24" stroke="#fbfaf8" stroke-width="1" fill="none" />
+    </pattern>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" fill="#fff" /><circle cx="4" cy="4" r="3" fill="#141419" />
+    </pattern>
+    <pattern id="dots-inv" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" fill="#141419" /><circle cx="4" cy="4" r="3" fill="#fff" />
+    </pattern>
+    <pattern id="rings" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#fff" />
+      <g stroke="#141419" fill="none" stroke-width="5">
+        <circle cx="100" cy="100" r="10" /><circle cx="100" cy="100" r="26" />
+        <circle cx="100" cy="100" r="42" /><circle cx="100" cy="100" r="58" />
+        <circle cx="100" cy="100" r="74" /><circle cx="100" cy="100" r="90" />
+      </g>
+    </pattern>
+    <pattern id="rings-inv" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#12324f" />
+      <g stroke="#fff" fill="none" stroke-width="5">
+        <circle cx="100" cy="100" r="14" /><circle cx="100" cy="100" r="34" />
+        <circle cx="100" cy="100" r="54" /><circle cx="100" cy="100" r="74" />
+        <circle cx="100" cy="100" r="94" />
+      </g>
+    </pattern>
+    <pattern id="cross" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#fff" />
+      <path d="M20 6V34M6 20H34" stroke="#141419" stroke-width="3" />
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#fff" />
+
+  <!-- Row 1 · frequency series: fine to coarse, then angled -->
+  <rect x="0" y="0" width="200" height="200" fill="url(#s6)" />
+  <rect x="200" y="0" width="200" height="200" fill="url(#s14)" />
+  <rect x="400" y="0" width="200" height="200" fill="url(#s30)" />
+  <rect x="600" y="0" width="200" height="200" fill="url(#sh)" />
+  <rect x="800" y="0" width="200" height="200" fill="url(#d45)" />
+  <rect x="1000" y="0" width="200" height="200" fill="url(#d135)" />
+  <rect x="1200" y="0" width="200" height="200" fill="url(#check)" />
+  <rect x="1400" y="0" width="200" height="200" fill="url(#check-s)" />
+
+  <!-- Row 2 · text, dark on light -->
+  <rect x="0" y="200" width="800" height="200" fill="#fbfaf8" />
+  <g fill="#141419" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+    <text x="20" y="244" font-size="38" font-weight="700">Edge, contour, capsule — 38 px</text>
+    <text x="20" y="282" font-size="24">Where letterforms bend, you can see the glass · 24 px</text>
+    <text x="20" y="312" font-size="16">Sixteen pixels — the size body copy actually runs at on the web, and therefore the case that counts.</text>
+    <text x="20" y="338" font-size="12">Twelve pixels: captions, footers, small print, tables, dates, credits, labels of every kind.</text>
+    <text x="20" y="360" font-size="9">Nine pixels — the first size any magnification destroys. 0123456789 · ABCDEFGH · abcdefgh · edge contour panel offset refraction lens rim bevel light shadow</text>
+    <text x="20" y="386" font-size="13" font-family="Courier New, monospace">|||| ---- ==== ++++ #### 1234 abcd WXYZ |||| ---- ==== ++++ #### 5678 efgh MNOP ||||</text>
+  </g>
+
+  <!-- Row 2 · text, light on dark -->
+  <rect x="800" y="200" width="800" height="200" fill="#141419" />
+  <g fill="#fbfaf8" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+    <text x="820" y="244" font-size="38" font-weight="700">Light on dark — 38 px</text>
+    <text x="820" y="282" font-size="24">The inverse case: thin light lines on black · 24 px</text>
+    <text x="820" y="312" font-size="16">Sixteen pixels, reversed contrast — blur eats light type faster than dark type.</text>
+    <text x="820" y="338" font-size="12">Twelve pixels on a dark ground: footers, image credits, navigation, dates, marginalia, notices.</text>
+    <text x="820" y="360" font-size="9">Nine pixels — 0123456789 · ABCDEFGH · abcdefgh · |||||||||||||||||||| · edge contour panel offset refraction lens rim bevel light</text>
+    <text x="820" y="386" font-size="13" font-family="Courier New, monospace">|||| ---- ==== ++++ #### 1234 abcd WXYZ |||| ---- ==== ++++ #### 5678 efgh MNOP ||||</text>
+  </g>
+
+  <!-- Row 3 · rings, grids, dots, crosses — alternating light and dark -->
+  <rect x="0" y="400" width="200" height="200" fill="url(#rings)" />
+  <rect x="200" y="400" width="200" height="200" fill="url(#grid)" />
+  <rect x="400" y="400" width="200" height="200" fill="url(#dots)" />
+  <rect x="600" y="400" width="200" height="200" fill="url(#rings-inv)" />
+  <rect x="800" y="400" width="200" height="200" fill="url(#grid-w)" />
+  <rect x="1000" y="400" width="200" height="200" fill="url(#dots-inv)" />
+  <rect x="1200" y="400" width="200" height="200" fill="url(#cross)" />
+  <rect x="1400" y="400" width="200" height="200" fill="url(#s6)" />
+
+  <!-- Row 4 · hard colour boundaries, every second field patterned -->
+  <rect x="0" y="600" width="200" height="200" fill="#e2001a" />
+  <rect x="200" y="600" width="200" height="200" fill="url(#d45)" />
+  <rect x="400" y="600" width="200" height="200" fill="#12324f" />
+  <rect x="600" y="600" width="200" height="200" fill="url(#check)" />
+  <rect x="800" y="600" width="200" height="200" fill="#3f7d4a" />
+  <rect x="1000" y="600" width="200" height="200" fill="url(#s14)" />
+  <rect x="1200" y="600" width="200" height="200" fill="#f2c200" />
+  <rect x="1400" y="600" width="200" height="200" fill="url(#dots)" />
+
+  <!-- Straight lines running across every colour boundary: the fastest way
+       to read off how far the backdrop has been displaced. -->
+  <g stroke="#fff" stroke-width="3">
+    <path d="M0 640H1600M0 760H1600" />
+  </g>
+  <g stroke="#141419" stroke-width="3">
+    <path d="M0 700H1600" />
+  </g>
+
+  <!-- Row 5 · labelled ruler, fine stripes underneath -->
+  <rect x="0" y="800" width="1600" height="200" fill="#fbfaf8" />
+  <g stroke="#141419" stroke-width="2" fill="#141419"
+     font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11">
+    <path d="M0 830H1600" />
+    <path d="M20 830v9M40 830v9M60 830v9M80 830v9M120 830v9M140 830v9M160 830v9M180 830v9M220 830v9M240 830v9M260 830v9M280 830v9M320 830v9M340 830v9M360 830v9M380 830v9M420 830v9M440 830v9M460 830v9M480 830v9M520 830v9M540 830v9M560 830v9M580 830v9M620 830v9M640 830v9M660 830v9M680 830v9M720 830v9M740 830v9M760 830v9M780 830v9M820 830v9M840 830v9M860 830v9M880 830v9M920 830v9M940 830v9M960 830v9M980 830v9M1020 830v9M1040 830v9M1060 830v9M1080 830v9M1120 830v9M1140 830v9M1160 830v9M1180 830v9M1220 830v9M1240 830v9M1260 830v9M1280 830v9M1320 830v9M1340 830v9M1360 830v9M1380 830v9M1420 830v9M1440 830v9M1460 830v9M1480 830v9M1520 830v9M1540 830v9M1560 830v9M1580 830v9" />
+    <path d="M0 830v20M100 830v20M200 830v20M300 830v20M400 830v20M500 830v20M600 830v20M700 830v20M800 830v20M900 830v20M1000 830v20M1100 830v20M1200 830v20M1300 830v20M1400 830v20M1500 830v20M1600 830v20" stroke-width="3" />
+    <g stroke="none">
+      <text x="104" y="866">100</text><text x="304" y="866">300</text>
+      <text x="504" y="866">500</text><text x="704" y="866">700</text>
+      <text x="904" y="866">900</text><text x="1104" y="866">1100</text>
+      <text x="1304" y="866">1300</text><text x="1504" y="866">1500</text>
+    </g>
+  </g>
+  <rect x="0" y="880" width="400" height="120" fill="url(#s6)" />
+  <rect x="400" y="880" width="400" height="120" fill="url(#d45)" />
+  <rect x="800" y="880" width="400" height="120" fill="url(#check-s)" />
+  <rect x="1200" y="880" width="400" height="120" fill="url(#s14)" />
+</svg>

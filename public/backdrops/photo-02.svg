@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img">
+  <!-- Image 2 — warm and saturated. This is where `saturate(190%)` pulls hardest. -->
+  <defs>
+    <linearGradient id="warm" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a1533" />
+      <stop offset="0.5" stop-color="#e0562c" />
+      <stop offset="1" stop-color="#ffc247" />
+    </linearGradient>
+    <filter id="grain2" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="21" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#warm)" />
+  <g fill="#fff" opacity="0.14">
+    <circle cx="300" cy="620" r="260" />
+    <circle cx="820" cy="300" r="180" />
+  </g>
+  <g stroke="#2b0713" stroke-width="14" opacity="0.25">
+    <path d="M-40 740 L1240 420" fill="none" />
+    <path d="M-40 840 L1240 520" fill="none" />
+  </g>
+  <rect width="1200" height="900" filter="url(#grain2)" opacity="0.14" />
+</svg>

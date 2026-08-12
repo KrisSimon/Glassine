@@ -1,0 +1,56 @@
+/* The story stage.
+
+   All values come from `src/lib/stories/backdrops.ts` via the decorator in
+   preview.ts, which writes them onto <body> as custom properties. Nothing
+   here hard-codes a backdrop.
+
+   Two things worth knowing:
+
+   1. Since v8 Storybook puts `sb-show-main` on <body> itself rather than on
+      a wrapper inside it. Rules of the form `body[…] .sb-show-main` hit
+      nothing — the backdrops hang off <body>.
+   2. The preview blocks on docs pages (`.docs-story`) bring their own white
+      ground. Hence custom properties: they inherit downwards, and both
+      surfaces read the same values. */
+
+body.sb-show-main,
+.docs-story {
+  background-color: var(--sb-backdrop-color, transparent);
+  background-image: var(--sb-backdrop, none);
+  background-size: var(--sb-backdrop-size, cover);
+  background-repeat: var(--sb-backdrop-repeat, no-repeat);
+  background-position: var(--sb-backdrop-position, center);
+
+  /* The promise to GlassSurface: a pixel-aligned copy of the backdrop.
+     Storybook renders stories inside an iframe, and there WebKit discards
+     SVG filters on backdrop layers — the refraction is then drawn from this
+     copy instead (echo mode, see lens.ts). The stage does not scroll, so
+     `background-attachment: fixed` makes the copy line up exactly.
+     Only in the docs previews can a non-tiling backdrop sit slightly off:
+     those blocks paint from their own edge, the copy from the viewport. */
+  background-attachment: fixed;
+}
+
+body.sb-show-main {
+  min-height: 100vh;
+  transition: background-color 200ms linear;
+}
+
+body.sb-show-main.sb-main-padded {
+  padding: 0;
+}
+
+/* Full-page stories bring their own backdrop — and it scrolls. A fixed copy
+   cannot be right there, so the echo is withdrawn: `initial` makes the
+   properties unset again, and GlassSurface falls back cleanly to frosted
+   glass wherever only the echo would have worked. */
+body[data-page-story="true"] {
+  --sb-backdrop: none;
+  --sb-backdrop-color: var(--l-canvas);
+  --glass-echo: initial;
+  --glass-echo-color: initial;
+  --glass-echo-size: initial;
+  --glass-echo-repeat: initial;
+  --glass-echo-position: initial;
+  padding: 0;
+}

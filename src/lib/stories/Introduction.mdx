@@ -1,0 +1,149 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Glassine
+
+A **liquid-glass surface for the web**. One component — `GlassSurface` — that
+does refraction, scattering and specular light, and a handful of things built on
+top of it to show what that is good for.
+
+```svelte
+<script>
+  import { GlassSurface } from "glassine";
+</script>
+
+<GlassSurface shape="pill">
+  <span style="padding: 10px 20px">Hello</span>
+</GlassSurface>
+```
+
+That is the whole API surface for the common case. Everything else is optional.
+
+> **Switch the backdrop in the toolbar above.** Glass over nothing is just milk,
+> and a displacement over a calm surface is invisible no matter how hard you dial
+> it in. Every story in here defaults to the **test chart** for that reason,
+> rather than to something pretty.
+
+---
+
+## What makes it glass
+
+Five layers, back to front. Each one is doing a specific job, and you can turn
+most of them off to see what they were contributing.
+
+**1 · Displacement** — the view through a *solid* block: the centre magnified,
+contours tipping away near the rim. An SVG filter moves the backdrop rather than
+merely softening it. `blur()` alone gives you frosted glass; the backdrop goes
+soft but stays geometrically put. See *Frosted vs. solid* under
+[GlassSurface](/docs/atoms-glasssurface--docs).
+
+**2 · Scattering** — `backdrop-filter: blur() saturate()`. Saturation is the more
+important half: it pulls colour up out of the backdrop, so the panel reads as
+connected to the page instead of pasted onto it. Once a displacement is in play
+there is almost no blur left (0.8px) — a heavy blur would dissolve exactly the
+contours whose bending you want to see.
+
+**3 · Body** — a shallow white gradient, diagonal. Without it the glass is a hole.
+
+**4 · Light** — a bright edge along the top, a bloom in the lower left, and for a
+solid block the **bevel** running all the way round. This is where the illusion
+lives; the story *Without specular light* is the control experiment.
+
+**5 · Shadow** — tinted warm rather than neutral grey, so the panel does not look
+like a UI element cut out and dropped onto a photograph.
+
+---
+
+## Where to look first
+
+| Story | Why |
+| --- | --- |
+| [GlassSurface → Playground](/story/atoms-glasssurface--playground) | Every control in one place, backdrop included |
+| [GlassSurface → Frosted vs. solid](/story/atoms-glasssurface--frosted-vs-solid) | The difference the displacement actually makes |
+| [GlassSurface → Lens](/story/atoms-glasssurface--lens) | A ball of glass — clearest view of the rim behaviour |
+| [Dock → On a desktop](/story/organisms-dock--on-a-desktop) | A macOS-style dock — what the surface is actually for |
+| [Backdrop stress test](/story/pages-backdrop-stress-test--seven-backdrops) | Seven backdrops, one panel, scroll through it |
+| [Usage](/docs/usage--docs) | Copy-paste recipes: navbar, dock, card, modal, button |
+
+---
+
+## What is in the box
+
+| Level | Components | Responsible for |
+| --- | --- | --- |
+| **Atoms** | `GlassSurface`, `GlassButton`, `GlassDivider`, `CountBadge`, `Icon`, `Tooltip` | The material: refraction, light, edge |
+| **Molecules** | `LauncherButton`, `MessagesButton`, `LogoutButton`, `GlassPen`, `BrowserFrame` | Meaning: an icon becomes a shortcut |
+| **Organisms** | `GlassBar`, `Dock`, `InlineEditable` | Behaviour: order, keyboard, state |
+| **Templates** | `GlassLayer`, `WebsiteScaffold`, `DemoSite` | Placement and separation of layers |
+| **Pages** | Overlay on a page / in a frame, backdrop stress test, inline editing | Whole compositions |
+
+`GlassSurface` is the only place liquid glass is defined. Bar, ball and pen are
+the same surface in different shapes — which is why they look like one system
+rather than three ideas.
+
+**You do not need any of the layers above Atoms.** They exist to demonstrate the
+surface and to give you something to read; take `GlassSurface` alone and build
+your own.
+
+---
+
+## Using it in your own project
+
+The components carry every value they need as `var(--x, fallback)`, so they render
+correctly with **no stylesheet imported at all**. Importing the tokens is only for
+rethemeing:
+
+```js
+// optional — only if you want to retheme everything at once
+import "glassine/tokens/tokens.css";
+```
+
+Or override individual properties wherever you like:
+
+```css
+:root {
+  --glass-blur: 16px;
+  --glass-saturate: 160%;
+  --brand-accent: #2f6fd0;
+}
+```
+
+See [Usage](/docs/usage--docs) for the full list of custom properties and a set of
+worked examples.
+
+---
+
+## Accessibility
+
+- **`prefers-reduced-transparency`** turns both the scattering *and* the
+  displacement off. Transparency is a preference, not a prerequisite — and moving
+  the unrest from the surface to the rim would not be an improvement.
+- **`prefers-contrast: more`** hardens the borders and takes the ink to black.
+- **No `backdrop-filter`** — the token set supplies a more opaque variant through
+  `@supports`. Legibility before effect.
+- `GlassBar` is a **toolbar** in the WAI-ARIA sense: one tab stop leads into it,
+  arrow keys move within it, Home/End jump to the ends. An extra layer must not
+  cost keyboard users one tab stop per control.
+- The focus ring has a white inner edge, so it stays visible on a photograph *and*
+  on white.
+
+---
+
+## Browser support
+
+The displacement is drawn differently depending on the engine, and
+`refraction="auto"` picks the right one for you:
+
+| Mode | How | Where |
+| --- | --- | --- |
+| `real` | An inner layer carries `backdrop-filter` and an ordinary `filter` on top | Chromium everywhere; WebKit in the top-level document |
+| `echo` | The layer filters a pixel-aligned *copy* of the backdrop, supplied by the environment through `--glass-echo-*` | WebKit inside iframes (Storybook!), Firefox |
+| `none` | Frosted glass, no displacement | Anywhere neither works |
+
+The important consequence: **echo mode needs the environment to hand it a copy**,
+and it can only copy something expressible as a CSS background. If you want the
+displacement in Safari-in-an-iframe or in Firefox, your backdrop has to be a
+background, not DOM — and it must not scroll independently. Everywhere else this
+is not your problem. `refraction={false}` sidesteps the whole question and gives
+you plain frosted glass, which is a perfectly reasonable choice.

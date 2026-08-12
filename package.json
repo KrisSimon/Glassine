@@ -1,0 +1,68 @@
+{
+  "name": "glassine",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "glass",
+    "glassmorphism",
+    "liquid-glass",
+    "backdrop-filter",
+    "refraction",
+    "ui-components"
+  ],
+  "type": "module",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./tokens/tokens.css": "./dist/tokens/tokens.css",
+    "./tokens/global.css": "./dist/tokens/global.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:lib": "svelte-package --input src/lib --output dist && node scripts/prune-package.mjs",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.5.7",
+    "@storybook/addon-docs": "^10.5.7",
+    "@storybook/addon-svelte-csf": "^5.1.2",
+    "@storybook/svelte-vite": "^10.5.7",
+    "@sveltejs/package": "^2.5.8",
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "@tsconfig/svelte": "^5.0.8",
+    "@types/node": "^24.13.3",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^10.5.7",
+    "svelte": "^5.56.8",
+    "svelte-check": "^4.7.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true
+  },
+  "description": "A liquid-glass surface for the web — refraction, scattering and specular light in one component."
+}
